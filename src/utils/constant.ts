@@ -39,6 +39,5 @@ const Links: LinkProperties[] = [
    },
 ];
 
-const MenuIcons : any[] = [MdHomeFilled,MdOutlineMan,RiSlideshow4Fill,MdContactPhone];
 
-export { Links,MenuIcons };
+export { Links };

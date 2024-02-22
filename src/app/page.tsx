@@ -1,12 +1,16 @@
-import React from "react";
+'use client'
+import * as React from "react";
 import Banner from "@/components/Banner";
 import About from "@/components/HeaderTwo";
+import { NextUIProvider } from "@nextui-org/react";
 
-export default () : React.JSX.Element => {
+export default () => {
   return (
-    <main className="text-white w-[100%]">
-      <Banner/>
-      <About/>
-    </main>
+    <NextUIProvider>
+      <main className="text-white w-[100%]">
+        <Banner />
+        <About />
+      </main>
+    </NextUIProvider>
   );
 }

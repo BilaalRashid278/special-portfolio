@@ -7,7 +7,8 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import { Links,MenuIcons } from '@/utils/constant';
+import { Links } from '@/utils/constant';
+import { CiMenuFries } from "react-icons/ci";
 
 const ListMenu = () => {
 
@@ -31,7 +32,9 @@ const ListMenu = () => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                        <Avatar sx={{ width: 32, height: 32, backgroundColor: 'white', color: 'black' }}>
+                            <CiMenuFries color='black' />
+                        </Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -45,16 +48,19 @@ const ListMenu = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 {Links?.map((link, index) => {
-                    // const icon : any = link.Icon;
+                    const Icon: any = link.Icon;
                     return (
                         <MenuItem key={index} onClick={handleClose}>
                             <ListItemIcon>
-                                {MenuIcons[index]}
+                                <Icon />
                             </ListItemIcon>
                             {link.name}
                         </MenuItem>
                     )
                 })}
+                <MenuItem key={Links?.length} onClick={handleClose}>
+                    Add Project
+                </MenuItem>
             </Menu>
         </React.Fragment>
     )
