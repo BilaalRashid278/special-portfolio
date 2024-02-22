@@ -4,7 +4,7 @@ import Banner from "@/components/Banner";
 import About from "@/components/HeaderTwo";
 import { NextUIProvider } from "@nextui-org/react";
 
-export default () => {
+const Home = () => {
   return (
     <NextUIProvider>
       <main className="text-white w-[100%]">
@@ -14,3 +14,6 @@ export default () => {
     </NextUIProvider>
   );
 }
+
+
+export default Home;
