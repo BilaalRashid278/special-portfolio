@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+button.MuiButton-containedPrimary {
+    @apply bg-[#1976d2];
+}
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -55,9 +58,9 @@
     z-index: 0;
 }
 
-.common_absolute{
+.common_absolute {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
