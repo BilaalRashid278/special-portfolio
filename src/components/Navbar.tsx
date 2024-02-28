@@ -8,11 +8,10 @@ import ListMenu from './small-comp/ListMenu';
 import { NextUIProvider } from "@nextui-org/react";
 import {Button as NextUIButton} from "@nextui-org/react";
 import Link from 'next/link';
-import SmoothScroll from 'smooth-scroll';
+
 
 
 const Navbar: React.FC = () => {
-  const scroll = new SmoothScroll();
   return (
     <NextUIProvider>
       <nav className='fixed top-0 w-[99.9%] h-[80px] bg-transparent z-50'>
@@ -34,11 +33,8 @@ const Navbar: React.FC = () => {
 
           <ul className='hidden lg:flex items-center' typeof='none'>
             {Links?.map((link, index): ReactNode => {
-              const contentID = document.getElementById(`${link.id}`);
               return (
-                <li onClick={() => {
-                  scroll.animateScroll(contentID);
-                }} key={index} className='cursor-pointer mx-5'>
+                <li  key={index} className='cursor-pointer mx-5'>
                   <Link href={`${link.url}`}>
                     <Button title={link.name} Icon={link.Icon} size='small'/>
                   </Link>
