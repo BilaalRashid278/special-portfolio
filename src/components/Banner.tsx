@@ -7,9 +7,9 @@ const Banner = () => {
   return (
     <header className='w-[100%] h-[100vh] relative'>
       <div className='bg_filtering'/>
-      <div className='z-20 common_absolute text-center text-white flex flex-col justify-center gap-4'>
+      <div className='z-20 w-[100%] px-5 common_absolute text-center text-white flex flex-col justify-center gap-4'>
         <h1
-        className='text-2xl sm:text-3xl md:text-4xl font-bold'
+        className='text-4xl font-bold'
         >Frontend Developer</h1>
         <TypeAnimationComponent sequence={[
           "I am a professional frontend developer to build a single page application",
@@ -18,7 +18,7 @@ const Banner = () => {
           4000
         ]} 
         wrapper={'h1'} 
-        className='sm:text-xs md:text-sm'
+        className='text-sm'
         />
 
         <NextUIButton title={'About Me'} onClick={() => {

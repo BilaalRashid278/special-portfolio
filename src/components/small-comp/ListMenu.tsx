@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { Links } from '@/utils/constant';
 import { CiMenuFries } from "react-icons/ci";
+import Link from 'next/link';
+
 
 const ListMenu = () => {
 
@@ -50,12 +52,14 @@ const ListMenu = () => {
                 {Links?.map((link, index) => {
                     const Icon: any = link.Icon;
                     return (
-                        <MenuItem key={index} onClick={handleClose}>
-                            <ListItemIcon>
-                                <Icon />
-                            </ListItemIcon>
-                            {link.name}
-                        </MenuItem>
+                        <Link href={`${link.url}`}>
+                            <MenuItem key={index} onClick={handleClose}>
+                                <ListItemIcon>
+                                    <Icon />
+                                </ListItemIcon>
+                                {link.name}
+                            </MenuItem>
+                        </Link>
                     )
                 })}
                 <MenuItem key={Links?.length} onClick={handleClose}>

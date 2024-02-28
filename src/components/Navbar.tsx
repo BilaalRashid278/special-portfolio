@@ -7,8 +7,12 @@ import { Links } from '@/utils/constant';
 import ListMenu from './small-comp/ListMenu';
 import { NextUIProvider } from "@nextui-org/react";
 import {Button as NextUIButton} from "@nextui-org/react";
+import Link from 'next/link';
+import SmoothScroll from 'smooth-scroll';
+
 
 const Navbar: React.FC = () => {
+  const scroll = new SmoothScroll();
   return (
     <NextUIProvider>
       <nav className='fixed top-0 w-[99.9%] h-[80px] bg-transparent z-50'>
@@ -16,7 +20,9 @@ const Navbar: React.FC = () => {
         <div className='w-[100%] h-[100%] absolute text-white flex justify-between px-10 md:px-28 lg:px-36 items-center'>
 
           <div className='flex gap-2 items-center'>
-            <LuWebhook className='' size={40} />
+            <LuWebhook style={{
+              animation : `spin 3s linear infinite`
+            }} className='' size={40} />
             <span className='font-bold text-3xl'>
               Dev.
             </span>
@@ -26,11 +32,16 @@ const Navbar: React.FC = () => {
             <ListMenu />
           </div>
 
-          <ul className='hidden lg:flex' typeof='none'>
+          <ul className='hidden lg:flex items-center' typeof='none'>
             {Links?.map((link, index): ReactNode => {
+              const contentID = document.getElementById(`${link.id}`);
               return (
-                <li key={index} className='cursor-pointer mx-5'>
-                  <Button title={link.name} Icon={link.Icon} />
+                <li onClick={() => {
+                  scroll.animateScroll(contentID);
+                }} key={index} className='cursor-pointer mx-5'>
+                  <Link href={`${link.url}`}>
+                    <Button title={link.name} Icon={link.Icon} size='small'/>
+                  </Link>
                 </li>
               )
             })}

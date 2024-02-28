@@ -1,7 +1,7 @@
 'use client'
 import * as React from "react";
 import Banner from "@/components/Banner";
-import About from "@/components/HeaderTwo";
+import AboutMe from "@/components/AboutMe";
 import { NextUIProvider } from "@nextui-org/react";
 
 const Home = () => {
@@ -9,7 +9,7 @@ const Home = () => {
     <NextUIProvider>
       <main className="text-white w-[100%]">
         <Banner />
-        <About />
+        <AboutMe />
       </main>
     </NextUIProvider>
   );

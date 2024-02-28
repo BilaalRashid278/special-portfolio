@@ -22,19 +22,19 @@ const Links: LinkProperties[] = [
    {
       id: 'about',
       name: 'About',
-      url: '/about',
+      url: '#about',
       Icon : MdOutlineMan
    },
    {
       id: 'products',
       name: 'Products',
-      url: '/products',
+      url: '#products',
       Icon : RiSlideshow4Fill
    },
    {
       id: 'contact',
       name: 'Contact',
-      url: '/contact',
+      url: '#contact',
       Icon : MdContactPhone
    },
 ];
