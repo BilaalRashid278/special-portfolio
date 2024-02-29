@@ -15,7 +15,6 @@ import Modal from '@mui/material/Modal';
 import { Button } from '@mui/material';
 
 const ListMenu = () => {
-    // const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -93,7 +92,7 @@ const ListMenu = () => {
                 {Links?.map((link, index) => {
                     const Icon: any = link.Icon;
                     return (
-                        <Link href={`${link.url}`}>
+                        <Link key={index} href={`${link.url}`}>
                             <MenuItem key={index} onClick={handleClose}>
                                 <ListItemIcon>
                                     <Icon />
