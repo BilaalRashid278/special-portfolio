@@ -2,10 +2,10 @@ import React from 'react'
 import './styles/banner.css';
 import TypeAnimationComponent from './small-comp/TypeAnimation';
 import NextUIButton from './small-comp/NextUIButton';
-
+import { handleScroll } from './small-comp/CommonFunctions';
 const Banner = () => {
   return (
-    <header className='w-[100%] h-[100vh] relative'>
+    <header id='home' className='w-[100%] h-[100vh] relative'>
       <div className='bg_filtering'/>
       <div className='z-20 w-[100%] px-5 common_absolute text-center text-white flex flex-col justify-center gap-4'>
         <h1
@@ -22,7 +22,7 @@ const Banner = () => {
         />
 
         <NextUIButton title={'About Me'} onClick={() => {
-          console.log('Hello how are you');
+          handleScroll('about');
         }} className='max-w-[100px] self-center' variant='bordered' color='success'/>
       </div>
     </header>
