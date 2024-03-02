@@ -9,7 +9,7 @@ const Banner = () => {
       <div className='bg_filtering'/>
       <div className='z-20 w-[100%] px-5 common_absolute text-center text-white flex flex-col justify-center gap-4'>
         <h1
-        className='text-4xl font-bold'
+        className='text-2xl sm:text-3xl md:text-4xl font-bold'
         >Frontend Developer</h1>
         <TypeAnimationComponent sequence={[
           "I am a professional frontend developer to build a single page application",

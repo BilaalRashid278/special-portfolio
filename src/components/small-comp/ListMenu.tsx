@@ -10,7 +10,11 @@ import Tooltip from '@mui/material/Tooltip';
 import { Links } from '@/utils/constant';
 import { CiMenuFries } from "react-icons/ci";
 import { handleScroll } from './CommonFunctions';
-import Link from 'next/link';
+import ModalContent from './ModalContent';
+import Modal from '@mui/material/Modal';
+import { Button } from '@mui/material';
+import { style } from '@/components/small-comp/CommonFunctions';
+import { Context } from '@/context/Context';
 
 const ListMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -21,8 +25,26 @@ const ListMenu = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const { openModal, setOpenModal } = React.useContext(Context);
     return (
         <React.Fragment>
+            <Modal
+                keepMounted
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                aria-labelledby="keep-mounted-modal-title"
+                aria-describedby="keep-mounted-modal-description"
+            >
+                <Box sx={{ ...style, border: 'none', outline: 'none' }}>
+                    <h1 className='font-semibold text-base'>Required Password</h1>
+                    <ModalContent />
+                    <footer className='flex justify-end gap-2 items-center mt-7'>
+                        <Button onClick={() => { setOpenModal(false) }} variant='contained'>
+                            Done
+                        </Button>
+                    </footer>
+                </Box>
+            </Modal>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <Tooltip title="Menu">
                     <IconButton
@@ -64,6 +86,9 @@ const ListMenu = () => {
                         </>
                     )
                 })}
+                <MenuItem key={Links?.length} onClick={() => {setOpenModal(true)}}>
+                    Admin
+                </MenuItem>
             </Menu>
         </React.Fragment>
     )
