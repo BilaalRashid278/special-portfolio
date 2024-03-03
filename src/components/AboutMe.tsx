@@ -13,7 +13,7 @@ const AboutMe = () => {
   return (
     <section id='about' className='w-[100%] flex flex-col items-center px-4 pb-4' style={{ backgroundColor: 'black' }}>
       <div className='text-center my-10 font-semibold text-2xl'>About Me</div>
-      <Grid container className='w-[100%] lg:w-[70%] max-h-[800px] shadow_custom rounded-[25px]'>
+      <Grid container style={{maxWidth : '800px'}} className='w-[100%] shadow_custom rounded-[25px]'>
         <Grid item xs={12} sm={5}>
           <Image width={100} height={100} src={src} className='w-[100%] object-cover rounded-tl-[25px] rounded-tr-[25px] md:rounded-[25px] h-[250px] lg:h-[270px]' alt='Profile Image'/>
         </Grid>
