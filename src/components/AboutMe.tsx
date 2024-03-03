@@ -22,7 +22,7 @@ const AboutMe = () => {
             <h1 className='text-sm'>{hightLightSkills.join(' | ')}</h1>
           </div>
           <div className='text-start'>
-            <h1 className='font-bold text-lg md:text-xl'>Hello I'am Bilal Rashid</h1>
+            <h1 className='font-bold text-lg md:text-xl'>{"Hello I'am Bilal Rashid"}</h1>
             <p className='text-sm mt-5'>{`${description.slice(0, description.length - 30)}...`}</p>
           </div>
           <div className='flex justify-between mt-5 md:mt-0'>
