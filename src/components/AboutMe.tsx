@@ -17,7 +17,11 @@ const AboutMe = () => {
         <Grid item xs={12} sm={5}>
           <Image width={100} height={100} src={src} className='w-[100%] object-cover rounded-tl-[25px] rounded-tr-[25px] md:rounded-[25px] h-[250px] lg:h-[270px]' alt='Profile Image'/>
         </Grid>
-        <Grid item xs={12} sm={7} className='p-5 flex flex-col justify-between gap-3 md:gap-0'>
+        <Grid item xs={12} sm={7} style={{
+          display : 'flex',
+          flexDirection : 'column',
+          justifyContent : 'space-between'
+        }} className='p-5 gap-3 md:gap-1'>
           <div>
             <h1 className='text-sm'>{hightLightSkills.join(' | ')}</h1>
           </div>
