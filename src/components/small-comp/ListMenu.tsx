@@ -36,7 +36,7 @@ const ListMenu = () => {
                 aria-describedby="keep-mounted-modal-description"
             >
                 <Box sx={{ ...style, border: 'none', outline: 'none' }}>
-                    <h1 className='font-semibold text-base'>Required Password</h1>
+                    <h1 className='font-semibold text-base text-red-500'>Required Password*</h1>
                     <ModalContent />
                     <footer className='flex justify-end gap-2 items-center mt-7'>
                         <Button onClick={() => { setOpenModal(false) }} variant='contained'>
