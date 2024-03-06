@@ -51,7 +51,8 @@ const Navbar: React.FC = () => {
       <nav className={`fixed top-0 w-[100%] h-[80px] bg-${'transparent'} z-50`}>
         <div className='nav_filtering absolute'
           style={{
-            backgroundColor: isAdmin ? 'black' : ''
+            backgroundColor: isAdmin ? 'black' : '',
+            transition : 'backgroundColor 0.3s ease'
           }}
         ></div>
         <div className={`w-[100%] h-[100%] absolute text-white flex justify-between px-10 md:px-28 lg:px-36 items-center`}>
@@ -86,6 +87,11 @@ const Navbar: React.FC = () => {
                   <Button onClick={() => {
                     if (!isAdmin) {
                       handleScroll(`${link.id}`);
+                    }else{
+                      router.push('/');
+                      setTimeout(() => {
+                        handleScroll(`${link.id}`);
+                      },300);
                     }
                   }} title={link.name} Icon={link.Icon} size='small' />
                 </li>

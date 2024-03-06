@@ -87,6 +87,11 @@ const ListMenu = () => {
                             handleClose();
                             if (!isAdmin) {
                                 handleScroll(`${link.id}`);
+                            } else {
+                                router.push('/');
+                                setTimeout(() => {
+                                    handleScroll(`${link.id}`);
+                                }, 300);
                             }
                         }}>
                             <ListItemIcon>
