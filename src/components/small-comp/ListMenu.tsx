@@ -15,19 +15,29 @@ import Modal from '@mui/material/Modal';
 import { Button } from '@mui/material';
 import { style } from '@/components/small-comp/CommonFunctions';
 import { Context } from '@/context/Context';
-
+import { useRouter } from 'next/navigation'
 const ListMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const { openModal, setOpenModal, isAdmin, adminPassword } = React.useContext(Context);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const { openModal, setOpenModal } = React.useContext(Context);
+    const router = useRouter();
+    const handleModal = () => {
+        if (adminPassword == '#bilaal') {
+            setOpenModal(false);
+            localStorage.setItem('adminPassword', adminPassword);
+            router.push('/admin');
+        } else {
+            alert('Please enter a password');
+        }
+    }
     return (
-        <React.Fragment>
+        <div>
             <Modal
                 keepMounted
                 open={openModal}
@@ -39,7 +49,7 @@ const ListMenu = () => {
                     <h1 className='font-semibold text-base text-red-500'>Required Password*</h1>
                     <ModalContent />
                     <footer className='flex justify-end gap-2 items-center mt-7'>
-                        <Button onClick={() => { setOpenModal(false) }} variant='contained'>
+                        <Button onClick={handleModal} variant='contained'>
                             Done
                         </Button>
                     </footer>
@@ -73,24 +83,31 @@ const ListMenu = () => {
                 {Links?.map((link, index) => {
                     const Icon: any = link.Icon;
                     return (
-                        <>
-                            <MenuItem key={index} onClick={() => {
-                                handleClose();
+                        <MenuItem key={index} onClick={() => {
+                            handleClose();
+                            if (!isAdmin) {
                                 handleScroll(`${link.id}`);
-                            }}>
-                                <ListItemIcon>
-                                    <Icon />
-                                </ListItemIcon>
-                                {link.name}
-                            </MenuItem>
-                        </>
+                            }
+                        }}>
+                            <ListItemIcon>
+                                <Icon />
+                            </ListItemIcon>
+                            {link.name}
+                        </MenuItem>
                     )
                 })}
-                <MenuItem key={Links?.length} onClick={() => {setOpenModal(true)}}>
+                <MenuItem key={Links?.length} onClick={() => {
+                    if (localStorage.getItem('adminPassword') == '#bilaal') {
+                        setOpenModal(false);
+                        router.push('/admin');
+                    } else {
+                        setOpenModal(true)
+                    }
+                }}>
                     Admin
                 </MenuItem>
             </Menu>
-        </React.Fragment>
+        </div>
     )
 }
 

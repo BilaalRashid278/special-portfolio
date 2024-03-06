@@ -1,5 +1,5 @@
 'use client'
-import React, { ReactNode, memo, useContext } from 'react';
+import React, { ReactNode, memo, useContext, useEffect } from 'react';
 import { LuWebhook } from "react-icons/lu";
 import './styles/nav.css';
 import Button from './small-comp/button';
@@ -14,9 +14,21 @@ import { Box, Button as MaterialButton } from '@mui/material';
 import { style } from '@/components/small-comp/CommonFunctions';
 import { Context } from '@/context/Context';
 import NextUIButton from './small-comp/NextUIButton';
+import { useRouter } from 'next/navigation'
 
 const Navbar: React.FC = () => {
-  const { openModal, setOpenModal } = useContext(Context);
+  const { openModal, setOpenModal, isAdmin, adminPassword } = useContext(Context);
+  const router = useRouter();
+  const handleModal = () => {
+    if (localStorage.getItem('adminPassword') == '#bilaal' || adminPassword == '#bilaal') {
+      setOpenModal(false);
+      localStorage.setItem('adminPassword', adminPassword);
+      router.push('/admin');
+    }
+    else {
+      alert('Please enter a password');
+    }
+  }
   return (
     <NextUIProvider>
       <Modal
@@ -26,33 +38,41 @@ const Navbar: React.FC = () => {
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
-        <Box sx={{...style,border : 'none',outline : 'none'}}>
+        <Box sx={{ ...style, border: 'none', outline: 'none' }}>
           <h1 className='font-semibold text-base text-red-500'>Required Password*</h1>
           <ModalContent />
           <footer className='flex justify-end gap-2 items-center mt-7'>
-            <MaterialButton onClick={() => { setOpenModal(false) }} variant='contained'>
+            <MaterialButton onClick={handleModal} variant='contained'>
               Done
             </MaterialButton>
           </footer>
         </Box>
       </Modal>
-      <nav className='fixed top-0 w-[99.9%] h-[80px] bg-transparent z-50'>
-        <div className='nav_filtering absolute'></div>
-        <div className='w-[100%] h-[100%] absolute text-white flex justify-between px-10 md:px-28 lg:px-36 items-center'>
+      <nav className={`fixed top-0 w-[100%] h-[80px] bg-${'transparent'} z-50`}>
+        <div className='nav_filtering absolute'
+          style={{
+            backgroundColor: isAdmin ? 'black' : ''
+          }}
+        ></div>
+        <div className={`w-[100%] h-[100%] absolute text-white flex justify-between px-10 md:px-28 lg:px-36 items-center`}>
 
-          <div className='flex gap-2 items-center'>
-            <LuWebhook style={{
-              animation: `spin 3s linear infinite`
-            }} className='' size={40} />
-            <TypeAnimationComponent sequence={[
-              "Bilal.",
-              3000,
-              "Rashid.",
-              3000
-            ]}
-              wrapper={'span'}
-              className='font-bold text-3xl font-mono'
-            />
+          <div>
+            <span onClick={() => {
+              router.push('/');
+            }} style={{ cursor: 'pointer' }} className='flex gap-2 items-center'>
+              <LuWebhook style={{
+                animation: `spin 3s linear infinite`
+              }} className='' size={40} />
+              <TypeAnimationComponent sequence={[
+                "Bilal.",
+                3000,
+                "Rashid.",
+                3000
+              ]}
+                wrapper={'span'}
+                className='font-bold text-3xl font-mono'
+              />
+            </span>
           </div>
 
           <div className='block lg:hidden'>
@@ -64,15 +84,26 @@ const Navbar: React.FC = () => {
               return (
                 <li key={index} className='cursor-pointer mx-5'>
                   <Button onClick={() => {
-                    handleScroll(`${link.id}`)
+                    if (!isAdmin) {
+                      handleScroll(`${link.id}`);
+                    }
                   }} title={link.name} Icon={link.Icon} size='small' />
                 </li>
               )
             })}
             <li>
               <NextUIButton title='Admin' onClick={() => {
-                setOpenModal(true);
-              }} color='default' size='md' variant='bordered' style={{ color: 'white' }}/>
+                if (localStorage.getItem('adminPassword') == '#bilaal') {
+                  setOpenModal(false);
+                  router.push('/admin');
+                } else {
+                  if (!isAdmin) {
+                    setOpenModal(true);
+                  } else {
+                    setOpenModal(false);
+                  }
+                }
+              }} color='default' size='md' variant='bordered' style={{ color: 'white' }} />
             </li>
           </ul>
 
