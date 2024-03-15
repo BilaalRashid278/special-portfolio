@@ -1,5 +1,5 @@
 'use client'
-import React, { ReactNode, memo, useContext, useEffect } from 'react';
+import React, { ReactNode, memo, useContext, useEffect, useState } from 'react';
 import { LuWebhook } from "react-icons/lu";
 import './styles/nav.css';
 import Button from './small-comp/button';
@@ -15,9 +15,16 @@ import { style } from '@/components/small-comp/CommonFunctions';
 import { Context } from '@/context/Context';
 import NextUIButton from './small-comp/NextUIButton';
 import { useRouter } from 'next/navigation'
-
+import { firestoreDB } from '@/firebase/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 const Navbar: React.FC = () => {
   const { openModal, setOpenModal, isAdmin, adminPassword } = useContext(Context);
+  const [sequences, setSequences] = useState([
+    "Bilal.",
+    3000,
+    "Rashid.",
+    3000
+  ]);
   const router = useRouter();
   const handleModal = () => {
     if (localStorage.getItem('adminPassword') == '#bilaal' || adminPassword == '#bilaal') {
@@ -29,6 +36,33 @@ const Navbar: React.FC = () => {
       alert('Please enter a password');
     }
   }
+
+
+  const getSequences = (data) => {
+    setSequences((prev) => {
+      prev = data['titles'];
+      return [...prev];
+    }); 
+    console.log(sequences);   
+  }
+  const handleFirebaseSequences = async () => {
+    try {
+      const res = await getDocs(collection(firestoreDB, 'logoTitle'));
+      res?.forEach((doc) => {
+        getSequences(doc.data());
+      });
+    } catch (error) {
+      setSequences([
+        "Bilal.",
+        3000,
+        "Rashid.",
+        3000
+      ]);
+    }
+  };
+  useEffect(() => {
+    handleFirebaseSequences()
+  }, []);
   return (
     <NextUIProvider>
       <Modal
@@ -52,7 +86,7 @@ const Navbar: React.FC = () => {
         <div className='nav_filtering absolute'
           style={{
             backgroundColor: isAdmin ? 'black' : '',
-            transition : 'backgroundColor 0.3s ease'
+            transition: 'backgroundColor 0.3s ease'
           }}
         ></div>
         <div className={`w-[100%] h-[100%] absolute text-white flex justify-between px-10 md:px-28 lg:px-36 items-center`}>
@@ -64,12 +98,7 @@ const Navbar: React.FC = () => {
               <LuWebhook style={{
                 animation: `spin 3s linear infinite`
               }} className='' size={40} />
-              <TypeAnimationComponent sequence={[
-                "Bilal.",
-                3000,
-                "Rashid.",
-                3000
-              ]}
+              <TypeAnimationComponent sequence={[...sequences]}
                 wrapper={'span'}
                 className='font-bold text-3xl font-mono'
               />
@@ -87,11 +116,11 @@ const Navbar: React.FC = () => {
                   <Button onClick={() => {
                     if (!isAdmin) {
                       handleScroll(`${link.id}`);
-                    }else{
+                    } else {
                       router.push('/');
                       setTimeout(() => {
                         handleScroll(`${link.id}`);
-                      },300);
+                      }, 300);
                     }
                   }} title={link.name} Icon={link.Icon} size='small' />
                 </li>

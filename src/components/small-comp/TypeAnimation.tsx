@@ -22,4 +22,4 @@ const TypeAnimationComponent = ({sequence = [],wrapper = 'h1',style,className} :
     )
 }
 
-export default memo(TypeAnimationComponent)
+export default TypeAnimationComponent;

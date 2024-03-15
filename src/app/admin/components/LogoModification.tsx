@@ -4,11 +4,14 @@ import { Button, IconButton } from '@mui/material';
 import { IoAddOutline } from "react-icons/io5";
 import { Input } from '@nextui-org/react';
 import { TiDelete } from "react-icons/ti";
+import { firestoreDB } from '@/firebase/firebase';
+import { addDoc, collection } from 'firebase/firestore';
 const LogoModification: React.FC = () => {
     const [addMore, setAddMore] = useState([{
         value: ''
     }]);
-    const [delay, setDelay] = useState<string>('');
+    const [data, setData] = useState<(number[] | string[])>([]);
+    const [delay, setDelay] = useState<string>('1000');
     const filterShowingText = () => {
         let arr: (string | number | any) = [];
         const filteredValues = addMore?.filter(text => {
@@ -16,20 +19,38 @@ const LogoModification: React.FC = () => {
         });
         filteredValues?.forEach((element) => {
             let currentValue: string = element?.value;
-            arr.push(currentValue, Number.parseInt(delay));
+            arr.push(currentValue, Number.parseInt(delay || '1000'));
         });
+        setData(arr);
     };
 
-    const handleRemove = (index : number) => {
+    const handleRemove = (index: number): void => {
         setAddMore(prev => {
-            prev.splice(index,1);
+            prev.splice(index, 1);
             return [...prev];
         });
     }
 
+    const handleChangeLogoTitle = async () => {
+        console.log(data);
+        if (data?.length) {
+            console.log(data,'3')
+            try {
+                const res = await addDoc(collection(firestoreDB,'logoTitle'),{
+                    titles : data
+                });
+                alert('Change Title Successfull');
+            } catch (error) {
+                alert('Data not submit');
+            }
+        } else {
+            alert('Please fill the title');
+        }
+    };
+
     useEffect(() => {
         filterShowingText();
-    }, [addMore,delay]);
+    }, [addMore, delay]);
     const fields = useMemo(() => {
         return addMore?.map((field, index) => {
             return (
@@ -79,6 +100,14 @@ const LogoModification: React.FC = () => {
                     setDelay(e?.target?.value);
                 }} />
             </div>
+            <Button
+                color='primary'
+                variant='contained'
+                className='my-4'
+                onClick={handleChangeLogoTitle}
+            >
+                Change Title
+            </Button>
         </div>
     )
 }
